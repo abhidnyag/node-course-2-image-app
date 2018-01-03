@@ -1,15 +1,15 @@
 h1{
     font-family: system-ui;
-    color: #4CAF50;
+    color: #f55336;
     align-content: center
 }
 h3{
     font-family: system-ui;
-    color: #4CAF50;
+    color: #f55336;
     align-content: center
 }
 
-input[type=text], input[type=email], input[type=date], input[type=password],input[type=submit], select {
+input[type=text], input[type=email], input[type=date], input[type=password],input[type=file],input[type=submit], select {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -22,11 +22,24 @@ input[type=text], input[type=email], input[type=date], input[type=password],inpu
 div {
     border-radius: 5px;
     background-color: #f2f2f2;
-    padding: 20px;
+    padding: 1px;
 }
-
+.title, .body{
+    border-radius: 5px;
+    background-color: #da6551;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    padding: 1px;
+ 
+}
+.title h4{
+   
+        font-weight:600;
+        margin-right:10px
+        
+}
 button{
-    background: #4CAF50;
+    background: #f55336;
     color: white;
     cursor:pointer;
     transition:background .3s ease;
@@ -38,7 +51,7 @@ button{
 }
 
 button:hover{
-    background: #45a049;
+    background: #da6551;
     padding:10px;
     border: none;
     border-radius: 4px;

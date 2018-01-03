@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-
+var dataFormat = require('dateformat');
+var now = new Date();
 var Image = mongoose.model('Image', {
    from: {
         type: String,
@@ -12,10 +13,12 @@ var Image = mongoose.model('Image', {
       trim: true
     },
     createdAt: {
-      type: Date,
-      default: Date.now
+      type: String,
+      default: dataFormat(now,"ddd, mmm dS, yyyy, h:MM:ss TT")
+    },
+    image: {
+
     }
-    
     /* ,
    _creator: {
       type: mongoose.Schema.Types.ObjectId,

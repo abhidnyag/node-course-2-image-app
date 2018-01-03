@@ -122,6 +122,8 @@ io.on('connection', (socket) => {
        users.removeUser(socket.id);
        users.addUser(socket.id, params.username, params.email, params.password);
        io.emit('updateUserList', users.getUserList());
+       socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
+       socket.broadcast.emit('newMessage', generateMessage('Admin' ,`${params.username} has joined.`));
        callback();
     });
     
