@@ -1,0 +1,112 @@
+<!-- <table>
+ <th>
+<tr>
+    <td>From</td>
+  <td>Messages</td>
+</tr>
+</th>
+
+<tbody>
+  
+   <% for(var i=0; i < data.length; i++)  { %>
+    <tr>
+        <td>
+            <%= data[i].from %>
+    </td>
+     <td>
+         <%= data[i].text %>
+     </td>
+     <td>
+        <%= data[i].createdAt %>
+    </td>
+     </tr>
+  <% } %>
+
+</tbody>
+
+</table> -->
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Chat | ImageApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"> 
+     <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+   
+<div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div id="users" style="color:antiquewhite"></div>
+      </div>
+    <div class="">
+            <span style="font-size:30px;cursor:pointer;color:black" onclick="openNav()">&#9776; People</span>
+    
+    
+    <div>
+        <ol id="messages"></ol>
+        
+        <div >
+            <form id="message-form" action="/images" method="post">
+                <input name="from" type="text" placeholder="Your name" autofocus autocomplete="off"/>
+                <input name="text"  type="text" placeholder="Message" autocomplete="off"/>
+                <input name="createdAt" type="date" placeholder="Time">
+                <input type="file" name="pic" accept="image/*">
+                
+             </form>
+             <button form="message-form">Send</button>
+                 <button  form="message-form" id="send-image">Send image</button>
+              <button  form="message-form" id="send-location">Send location</button> 
+        </div>
+            
+    </div>
+
+    <script id="message-template" type="text/template">
+     <li class="message">
+      <div class="message__title">
+          <h4>{{from}}</h4> 
+        <span>{{createdAt}}</span>
+      </div> 
+      <div class="message__body">
+       <p>{{text}}</p>
+      </div>
+    </li>
+    </script>
+
+  <script id="location-message-template" type="text/template">
+        <li class="message">
+         <div class="message__title">
+             <h4>{{from}}</h4> 
+           <span>{{createdAt}}</span>
+         </div> 
+         <div class="message__body">
+          <p>
+              <a href="{{url}}" target="_blank">My current location</a>
+          </p>
+         </div>
+       </li>
+       </script> 
+    </div>
+        <script>
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "250px";
+            }
+            
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+            }
+            </script> 
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/libs/index.js"></script>
+    <script src="/js/libs/moment.js"></script>
+    <script src="/js/libs/mustache.js"></script>
+    <script src="/js/libs/deparam.js"></script>
+    <script src="/js/image.js"></script>
+</body>
+
+</html>
