@@ -1,3 +1,4 @@
+require('./config/config');
 const path = require('path');
 const http = require('http');
 const _=require('lodash');
@@ -5,9 +6,10 @@ var fs = require('fs');
 var Grid = require("gridfs-stream");
 
 const express = require('express');
+const {ObjectID} = require('mongodb');
 const bodyParser = require('body-parser');
 
-const {ObjectID} = require('mongodb');
+
 var {mongoose} = require('./db/mongoose');
 var {User} = require('./models/user');
 var {Image} = require('./models/image');
@@ -63,14 +65,25 @@ app.get('/', function(req, res) {
      email:req.body.email,
      password:req.body.password
   });
-  user
+  user.save().then(() => {
+    return user.generateAuthToken();  
+  }).then((token) => {
+    res.header('x-auth', token).send(user);
+  }).then(result =>{
+    console.log(result);
+}).catch((e) => {
+     res.status(400).send(e);
+  })
+  res.redirect('/login.html');
+ /*  user
      .save()
      .then(result =>{
          console.log(result);
      })
      .catch(err => console.log(err));
-     var id = req.body._id;
-     res.redirect('/images/' +id);
+    
+     */
+     res.redirect('/login.html');
     /*  res.render('users/success', {user:user}); */
     // var id = req.body._id;
     // res.redirect('/users/' + id); 
@@ -80,17 +93,51 @@ app.get('/', function(req, res) {
     //  });
      
  });
- app.get('/images/:id', (req,res) => {
-    Image.find().then((data) => {
+
+ app.post('/users/login', (req,res) => {
+    var body = _.pick(req.body, ['email', 'password']);
+     User.findByCredentials(body.email, body.password).then((user) => {
+      return user.generateAuthToken().then((token) => {
+      //  res.header('x-auth', token).send(user);
+   //   res.redirect('/images/image', {data:data});
+      });
+      var id = req.body._id;
+   
+     res.redirect('/images/image', {data:data});
+   // res.render('images/success', {image:image});
+     }).catch((e) => {
+      res.status(400).send();
+     });
+    //res.send(body); 
+  
+    });
+
+ app.get('/images', (req,res) => {
+    /* Image.find().then((data) => {
         res.render('images/image', {data:data}); 
     }, (e) =>{
     res.status(400).send(e);
-    });
+    }); */
+   /*  var email=req.params.username;
+    console.log(email); */
+    
+    var user =Image.find( (err, user) => {
+        if(err){
+            throw err;
+        } 
+    //    console.log(user);
+        if(user) {
+            var userArray=[];
+            for(var i=0; i< user.length;i++){
+                userArray.push(user);
+            }
+            res.render('images/success', {user:user});
+        }   
  });
+});
  
- app.post('/images', (req, res) => {
+ app.post('/images',(req, res) => {
     //console.log(req.body);
-  
     var image = new Image({
         from: req.body.from,
         text: req.body.text,
@@ -128,8 +175,6 @@ io.on('connection', (socket) => {
     });
     
 });
-
-
 
 app.listen(port, () => {
     console.log(`Started on port ${port}`);

@@ -63,3 +63,7 @@ table, th, td{
     border-collapse: collapse;
     padding:6px
 }
+h3 a {
+    color: #f55336; 
+    text-align: right;
+} 

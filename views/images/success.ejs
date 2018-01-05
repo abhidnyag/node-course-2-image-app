@@ -6,29 +6,40 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <% for(var i=0; i < user.length; i++)  { %>
+      <ul>
+        <li>
+        <div class="title">
+       <h4>
+               <%= user[i].from %>
+       </h4>
+             <span>
+                <%= user[i].createdAt %>
+             </span>
+            </div>
+            <div class="body">
+           <p>
+                   <%= user[i].text %>
+           </p>
+                </div>
+              </li>
+           </ul>
+   <% } %>
 
-  <ol>
-    <li class="messages">
-      <div class="title">
-   <h4><%= image.from %>:</h4>
-   <span><%= image.createdAt %></span>
+    <div >
+            <form id="message-form" action="/images" method="post">
+            <input name="from" type="text" placeholder="Your name" autofocus autocomplete="off"/>
+                <input name="text"  type="text" placeholder="Message" autofocus autocomplete="off"/>
+                <input name="createdAt" type="date" placeholder="Time">
+             
+                
+             </form>
+             <button form="message-form">Send</button>
+                 <button  form="message-form" id="send-image">Send image</button>
+              <button  form="message-form" id="send-location">Send location</button> 
+        </div>
+  
 
-</div>
-<div class="body">
-    <p><%= image.text %> </p>
-</div>
-
-</li>
-</ol>
-
-<form id="message-form" action="/images" method="post">
-    <input name="from" type="text" placeholder="Your name" autofocus autocomplete="off"/>
-    <input name="text"  type="text" placeholder="Message" autofocus autocomplete="off"/>
-    <input name="createdAt" type="date" placeholder="Time">
-
-</form>
-<button form="message-form">Send</button>
-<button  form="message-form" id="send-image">Send image</button>
-<button  form="message-form" id="send-location">Send location</button> 
+ 
 </body>
 </html>
