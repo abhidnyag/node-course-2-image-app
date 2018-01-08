@@ -2,25 +2,26 @@
 <head>
   <meta charset="utf-8">
   <title>Join | ImageApp</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, image-scalable=no"> 
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <% for(var i=0; i < user.length; i++)  { %>
+    <% for(var i=0; i < image.length; i++)  { %>
       <ul>
         <li>
         <div class="title">
        <h4>
-               <%= user[i].from %>
+               <%= image[i].from %>
        </h4>
              <span>
-                <%= user[i].createdAt %>
+                <%= image[i].createdAt %>
              </span>
             </div>
             <div class="body">
            <p>
-                   <%= user[i].text %>
+                   <%= image[i].text %>
            </p>
+      
                 </div>
               </li>
            </ul>
@@ -31,8 +32,8 @@
             <input name="from" type="text" placeholder="Your name" autofocus autocomplete="off"/>
                 <input name="text"  type="text" placeholder="Message" autofocus autocomplete="off"/>
                 <input name="createdAt" type="date" placeholder="Time">
-             
-                
+           
+             <input type="file" name="image"  placeholder="Image"/>
              </form>
              <button form="message-form">Send</button>
                  <button  form="message-form" id="send-image">Send image</button>

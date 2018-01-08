@@ -83,7 +83,7 @@ app.get('/', function(req, res) {
      .catch(err => console.log(err));
     
      */
-     res.redirect('/login.html');
+   
     /*  res.render('users/success', {user:user}); */
     // var id = req.body._id;
     // res.redirect('/users/' + id); 
@@ -103,7 +103,7 @@ app.get('/', function(req, res) {
       });
       var id = req.body._id;
    
-     res.redirect('/images/image', {data:data});
+     res.redirect('images/image', {data:data});
    // res.render('images/success', {image:image});
      }).catch((e) => {
       res.status(400).send();
@@ -112,16 +112,16 @@ app.get('/', function(req, res) {
   
     });
 
- app.get('/images', (req,res) => {
-    /* Image.find().then((data) => {
+ app.get('/images/:id', (req,res) => {
+
+    Image.find().then((data) => {
         res.render('images/image', {data:data}); 
-    }, (e) =>{
-    res.status(400).send(e);
-    }); */
-   /*  var email=req.params.username;
-    console.log(email); */
-    
-    var user =Image.find( (err, user) => {
+       
+       }, (e) => {
+         res.status(400).send(e);
+       });
+
+  /*   var image =Image.find( (err, image) => {
         if(err){
             throw err;
         } 
@@ -130,10 +130,10 @@ app.get('/', function(req, res) {
             var userArray=[];
             for(var i=0; i< user.length;i++){
                 userArray.push(user);
-            }
-            res.render('images/success', {user:user});
-        }   
- });
+            } 
+            res.render('images/success', {image:image});
+       }   
+ }); */
 });
  
  app.post('/images',(req, res) => {
@@ -143,15 +143,24 @@ app.get('/', function(req, res) {
         text: req.body.text,
         createdAt: req.body.createdAt
     });
-    
-    image
+/* 
+    var user=[];
+    for(var i=0; i< image.length;i++) {
+        user.push(image);
+    }
+    res.render('images/success', {user:user}) */
+  /*   image.image.data = fs.readFileSync("/home/infiny");
+image.image.contentType = 'jpg'; */
+     image
     .save()
     .then(doc=> {
         console.log(doc);
     }) 
     .catch(err => console.log(err));
-    res.render('images/success', {image:image});
-    });
+    //res.render('images/image', {data:data});
+    var id = req.body._id;
+     res.redirect('/images/' + id); 
+    }); 
  
 io.on('connection', (socket) => {
     console.log('New user connected');

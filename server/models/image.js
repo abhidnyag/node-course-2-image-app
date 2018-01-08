@@ -17,7 +17,8 @@ var Image = mongoose.model('Image', {
       default: dataFormat(now,"ddd, mmm dS, yyyy, h:MM:ss TT")
     },
     image: {
-
+      data: Buffer,
+       contentType: String
     }
     /* ,
    _creator: {

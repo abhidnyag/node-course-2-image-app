@@ -1,64 +1,58 @@
-<!-- <table>
- <th>
-<tr>
-    <td>From</td>
-  <td>Messages</td>
-</tr>
-</th>
 
-<tbody>
-  
-   <% for(var i=0; i < data.length; i++)  { %>
-    <tr>
-        <td>
-            <%= data[i].from %>
-    </td>
-     <td>
-         <%= data[i].text %>
-     </td>
-     <td>
-        <%= data[i].createdAt %>
-    </td>
-     </tr>
-  <% } %>
-
-</tbody>
-
-</table> -->
 <!DOCTYPE html>
 
 <html>
 
 <head>
     <meta charset="utf-8">
-    <title>Chat | ImageApp</title>
+    <title>Chat | dataApp</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"> 
      <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
    
+
 <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <div id="users" style="color:antiquewhite"></div>
       </div>
     <div class="">
             <span style="font-size:30px;cursor:pointer;color:#f55336" onclick="openNav()">&#9776; People</span>
-    
+            <% for(var i=0; i < data.length; i++)  { %>
+                <ul>
+                  <li>
+                  <div class="title">
+                 <h4>
+                         <%= data[i].from %>
+                 </h4>
+                       <span>
+                          <%= data[i].createdAt %>
+                       </span>
+                      </div>
+                      <div class="body">
+                     <p>
+                             <%= data[i].text %>
+                     </p>
+                
+                          </div>
+                        </li>
+                     </ul>
+             <% } %>
     
     <div>
         <ol id="messages"></ol>
         
         <div >
-            <form id="message-form" action="/images" method="get">
+            <form id="message-form" action="/images" method="post">
             <input name="from" type="text" placeholder="Your name" autofocus autocomplete="off"/>
                 <input name="text"  type="text" placeholder="Message" autofocus autocomplete="off"/>
                 <input name="createdAt" type="date" placeholder="Time">
-                <input type="file" name="pic" accept="image/*">
+                <input type="file" name="pic" accept="data/*">
                 
              </form>
              <button form="message-form">Send</button>
-                 <button  form="message-form" id="send-image">Send image</button>
+                 <button  form="message-form" id="send-data">Send data</button>
               <button  form="message-form" id="send-location">Send location</button> 
         </div>
             
@@ -105,7 +99,7 @@
     <script src="/js/libs/moment.js"></script>
     <script src="/js/libs/mustache.js"></script>
     <script src="/js/libs/deparam.js"></script>
-    <script src="/js/image.js"></script>
+    <script src="/js/data.js"></script>
 </body>
 
 </html>
