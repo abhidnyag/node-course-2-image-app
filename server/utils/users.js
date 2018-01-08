@@ -39,8 +39,7 @@ removeUser (id){
     
   }
 
-
-getUserList (){
+  getUserList (){
     var users = this.users.username;
   console.log(users);
     return users;   

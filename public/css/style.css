@@ -1,3 +1,45 @@
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color:  #dd5347; 
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
 h1{
     font-family: system-ui;
     color: #dd5347;
@@ -29,7 +71,7 @@ div {
     background-color: #dd5347;
     opacity: 0.5;
     filter: alpha(opacity=50);
-    padding: 1px;
+    padding: 10px 10px 0px;
  
 }
 .title h4{
@@ -64,7 +106,17 @@ table, th, td{
     border-collapse: collapse;
     padding:6px
 }
-h3 a {
+h4 a {
+    font-family: system-ui;
+    
+    font-size: 120%;
+    float: right;
+    margin-left: 1em;
+    padding: 5px 5px 0;
     color: #dd5347; 
-    text-align: right;
+    
 } 
+
+.title span{
+    align-content: flex-end;
+}

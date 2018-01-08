@@ -21,8 +21,6 @@ const {generateMessage, generateImageMessage} = require('./utils/image');
 const {isRealString} = require('./utils/validation');
 const {Users} = require('./utils/users');
 
-
-
 var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
@@ -57,9 +55,7 @@ app.get('/', function(req, res) {
    });
  });
  
- 
  app.post('/users', function(req, res) {
-  
   const user = new User({
      username:req.body.username,
      email:req.body.email,
@@ -75,14 +71,6 @@ app.get('/', function(req, res) {
      res.status(400).send(e);
   })
   res.redirect('/login.html');
- /*  user
-     .save()
-     .then(result =>{
-         console.log(result);
-     })
-     .catch(err => console.log(err));
-    
-     */
    
     /*  res.render('users/success', {user:user}); */
     // var id = req.body._id;
@@ -98,8 +86,6 @@ app.get('/', function(req, res) {
     var body = _.pick(req.body, ['email', 'password']);
      User.findByCredentials(body.email, body.password).then((user) => {
       return user.generateAuthToken().then((token) => {
-      //  res.header('x-auth', token).send(user);
-   //   res.redirect('/images/image', {data:data});
       });
       var id = req.body._id;
    
@@ -121,19 +107,6 @@ app.get('/', function(req, res) {
          res.status(400).send(e);
        });
 
-  /*   var image =Image.find( (err, image) => {
-        if(err){
-            throw err;
-        } 
-    //    console.log(user);
-        if(user) {
-            var userArray=[];
-            for(var i=0; i< user.length;i++){
-                userArray.push(user);
-            } 
-            res.render('images/success', {image:image});
-       }   
- }); */
 });
  
  app.post('/images',(req, res) => {
@@ -149,15 +122,13 @@ app.get('/', function(req, res) {
         user.push(image);
     }
     res.render('images/success', {user:user}) */
-  /*   image.image.data = fs.readFileSync("/home/infiny");
-image.image.contentType = 'jpg'; */
      image
     .save()
     .then(doc=> {
         console.log(doc);
     }) 
     .catch(err => console.log(err));
-    //res.render('images/image', {data:data});
+
     var id = req.body._id;
      res.redirect('/images/' + id); 
     }); 
@@ -182,7 +153,13 @@ io.on('connection', (socket) => {
        socket.broadcast.emit('newMessage', generateMessage('Admin' ,`${params.username} has joined.`));
        callback();
     });
-    
+    socket.on('createMessage', (message, callback) => {
+        var user = users.getUser(socket.id);
+        if(user && isRealString(message.text)){
+         io.emit('newMessage', generateMessage(user.name, message.text));
+        }
+        callback();
+     });
 });
 
 app.listen(port, () => {
