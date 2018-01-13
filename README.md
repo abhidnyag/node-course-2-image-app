@@ -2,4 +2,4 @@
 
 1. npm i 
 2. install & setup mongoDB
-3. run node server/server.js
+3. run this command: node server/server.js
